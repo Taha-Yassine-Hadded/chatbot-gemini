@@ -20,7 +20,7 @@ export async function* streamGeminiResponse(
       }
     }
     
-    const response = await ai.models.generateContentStream({
+    const stream = await ai.models.generateContentStream({
       model: 'gemini-2.0-flash-exp',
       contents: prompt,
     })
@@ -28,8 +28,8 @@ export async function* streamGeminiResponse(
     let totalTokens = 0
     const startTime = Date.now()
 
-    for await (const chunk of response.stream) {
-      const text = chunk.text()
+    for await (const chunk of stream) {
+      const text = chunk.text
       
       if (!text) continue
       
